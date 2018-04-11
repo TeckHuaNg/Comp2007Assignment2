@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Assignment2.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Assignment2
 {
@@ -24,6 +26,10 @@ namespace Assignment2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            // db conn
+            var db = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<ShoeStoreModel>(options => options.UseSqlServer(db));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
